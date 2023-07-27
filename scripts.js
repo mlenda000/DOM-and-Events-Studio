@@ -15,14 +15,19 @@ const right = document.getElementById('left');
 let altitude = 0;
 let rocketUp = 0;
 let rocketLeft = 0;
+let clicksTop = 0;
+let clicksLeft = 0;
 
 button1.addEventListener('click', event =>{
     let response = window.confirm('Confirm that the shuttle is ready for takeoff.');
     if (response){
        fStatus.innerHTML = 'Shuttle in flight.';
        shuttleBg.style.backgroundColor= 'blue';
-       altitude += 10000
-       rocketUp -= 10
+       altitude = 0;
+       altitude += 10000;
+       rocketUp = 0;
+       rocketUp -= 10;
+       clicksTop = 1;
        ship.style.marginTop = rocketUp+'px';
        height.innerHTML = altitude;    
     }
@@ -35,6 +40,12 @@ button2.addEventListener('click', event =>{
        height.innerHTML = 0;    
        ship.style.marginTop = 0;
        ship.style.marginLeft = 0;
+       clicksTop = 0;
+       clicksLeft = 0;
+       altitude = 0;
+       rocketUp = 0;
+       rocketLeft = 0;
+
 });
 
 button3.addEventListener('click', event =>{
@@ -44,30 +55,47 @@ button3.addEventListener('click', event =>{
        shuttleBg.style.backgroundColor= 'green';
        height.innerHTML = 0; 
        ship.style.marginTop = 0;
-       ship.style.marginLeft = 0;   
+       ship.style.marginLeft = 0; 
+       clicksTop = 0;
+       clicksLeft = 0;
+       altitude = 0;
+       rocketUp = 0;
+       rocketLeft = 0;
        }
 });
 
 up.addEventListener('click', event => {   
-    rocketUp -= 10
+   if (clicksTop < 25){
+    rocketUp -= 10;
     ship.style.marginTop = rocketUp+'px';
     altitude += 10000;
-    height.innerHTML = altitude;  
+    height.innerHTML = altitude; 
+    clicksTop++
+   } 
 });
 
 down.addEventListener('click', event => {   
+    if (clicksTop > 0){
     rocketUp += 10;
     ship.style.marginTop = rocketUp + 'px';
     altitude -= 10000;
-    height.innerHTML = altitude;  
+    height.innerHTML = altitude; 
+    clicksTop-- 
+    }
 });
 
 left.addEventListener('click', event => {   
+    if (clicksLeft < 23){
     rocketLeft += 10;
     ship.style.marginLeft = rocketLeft + 'px'; 
+    clicksLeft++
+    }
 });
 
 right.addEventListener('click', event => {   
+    if (clicksLeft > -24){
     rocketLeft -= 10;
     ship.style.marginLeft = rocketLeft + 'px';
+    clicksLeft--
+    }
 });
